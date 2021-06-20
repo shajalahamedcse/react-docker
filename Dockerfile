@@ -20,7 +20,7 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-CMD [ "sleep","300" ]
+
 #########
 # FINAL #
 #########
@@ -29,14 +29,14 @@ CMD [ "sleep","300" ]
 FROM nginx:1.19.4-alpine
 
 # # update nginx conf
-# RUN rm -rf /etc/nginx/conf.d
-# COPY conf /etc/nginx
-
+RUN rm -rf /etc/nginx/conf.d
+COPY conf /etc/nginx
+# CMD [ "sleep","300" ]
 # # copy static files
-# COPY --from=builder /usr/src/app/build /usr/share/nginx/html
+COPY --from=builder /usr/src/app/build /usr/share/nginx/html
 
-# # expose port
-# EXPOSE 80
+# expose port
+EXPOSE 80
 
-# # run nginx
-# CMD ["nginx", "-g", "daemon off;"]
+# run nginx
+CMD ["nginx", "-g", "daemon off;"]
