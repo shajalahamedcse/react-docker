@@ -3,38 +3,30 @@
 ###########
 
 # pull official base image
-FROM node:15.2.0-alpine as builder
+FROM node:latest as builder
 
 # set working directory
 WORKDIR /usr/src/app
 
-# add `/usr/src/app/node_modules/.bin` to $PATH
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
-# install and cache app dependencies
+
+# # install and cache app dependencies
 COPY package.json .
-COPY package-lock.json .
-RUN npm ci
-RUN npm install react-scripts@4.0.0 --silent
+# RUN npm ci
+RUN npm install 
 
 
-# set environment variables
-ARG REACT_APP_API_SERVICE_URL
-ENV REACT_APP_API_SERVICE_URL $REACT_APP_API_SERVICE_URL
-ARG NODE_ENV
-ENV NODE_ENV $NODE_ENV
-
-# create build
+# # create build
 COPY . .
 RUN npm run build
 
-
+CMD [ "sleep","300" ]
 #########
 # FINAL #
 #########
 
 # # base image
-# FROM nginx:1.19.4-alpine
+FROM nginx:1.19.4-alpine
 
 # # update nginx conf
 # RUN rm -rf /etc/nginx/conf.d
