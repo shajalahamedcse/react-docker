@@ -1,0 +1,21 @@
+
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    image: "devops2015/backend"
+    ports:
+      - "8081:8080"
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    image: "devops2015/frontend"
+    ports:
+      - "3030:80"
+    depends_on: 
+      - "backend" 
+
