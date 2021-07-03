@@ -64,6 +64,10 @@ app.get("/api/v1/users",(req,res)=>{
     res.send(users);
 })
 
+app.post("/api/v1/add",async(req,res)=>{
+  res.send(users);
+})
+
 app.listen(8080,()=>{
     console.log("The server is running")
 })
